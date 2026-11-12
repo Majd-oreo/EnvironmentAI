@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>بيئتي — افهم أثرك البيئي</title>
+  <meta name="description" content="بيئتي: منصة ذكاء اصطناعي عربية تحلل صور المنتجات والنفايات وتقدّم توصيات علمية للتدوير وإعادة الاستخدام والتخلص الآمن." />
+  <meta name="theme-color" content="#faf6ee" />
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <script src="assets/data/knowledge.js" defer></script>
+  <script src="assets/js/beati.js" defer></script>
+</head>
+<body>
+  <!-- Icon sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L7.5 8.5M12 4l4.5 4.5M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+      <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2l1.4-2h6.2l1.4 2h2A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+      <symbol id="i-recycle" viewBox="0 0 24 24"><path d="M7.2 19H5a2 2 0 0 1-1.7-3l1.6-2.7M9.5 5.3l1-1.7a2 2 0 0 1 3.4 0l1.6 2.7M19.2 13.5l1.4 2.5a2 2 0 0 1-1.7 3h-4.4"/><path d="m11 19 3.5 0m0 0-1.8-1.8M14.5 19l-1.8 1.8M5.6 9.8 7 13l3.2-1.1M17.1 7.4l-1.5 2.9-3.3-.9"/></symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 15-14-.5 9.5-6 14.5-13.5 14.5"/><path d="M5 19c3-4 6-6.5 9.5-8.5"/></symbol>
+      <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 4 2.8 19.5h18.4z"/><path d="M12 10v4.5M12 17.2v.3"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 12a7.5 7.5 0 0 1-11 6.6L4 20l1.4-4.6A7.5 7.5 0 1 1 20 12z"/></symbol>
+      <symbol id="i-history" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5"/><path d="M4 4v4.5h4.5M12 8v4.5l3 1.8"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+      <symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+      <symbol id="i-question" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.6 2.3c-.8.4-1.2 1-1.2 1.9v.3M12 17v.2"/></symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.5c.6 4.3 2.3 6 6.5 6.5-4.2.6-5.9 2.3-6.5 6.5-.6-4.2-2.3-5.9-6.5-6.5 4.2-.5 5.9-2.2 6.5-6.5zM18.5 15.5c.3 1.8 1 2.5 2.5 2.8-1.5.3-2.2 1-2.5 2.7-.3-1.7-1-2.4-2.5-2.7 1.5-.3 2.2-1 2.5-2.8z"/></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.8h5V7M6.5 7l.8 12.2a1 1 0 0 0 1 .8h7.4a1 1 0 0 0 1-.8L17.5 7"/></symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3L19.5 9"/><path d="M19.5 4.5V9H15"/></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path d="M20 4 3.5 11l6.5 2.5L12.5 20z"/><path d="m10 13.5 4.5-4.5"/></symbol>
+      <symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 7h11m0 0-3.5-3.5M18 7l-3.5 3.5M17 17H6m0 0 3.5-3.5M6 17l3.5 3.5"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s6.5-5.6 6.5-11a6.5 6.5 0 0 0-13 0c0 5.4 6.5 11 6.5 11z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+      <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9.5 3.5h5M10.5 3.5v5.5L5 18.3A1.5 1.5 0 0 0 6.3 20.5h11.4a1.5 1.5 0 0 0 1.3-2.2L13.5 9V3.5"/><path d="M7.5 15h9"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5 5 6v5.5c0 4.4 3 7.8 7 9 4-1.2 7-4.6 7-9V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></symbol>
+      <symbol id="i-image" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="m4 17.5 5-4.5 4 3.5 2.5-2 4.5 3.5"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+      <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.7-8.7M16.5 6.5l2.5 2.5M14 9l2 2"/></symbol>
+    </defs>
+  </svg>
+
+  <a class="skip-link" href="#main">تخطَّ إلى المحتوى</a>
+
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand" aria-label="بيئتي — الصفحة الرئيسية">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><circle cx="16" cy="18" r="11" fill="#d5e1b5"/><rect x="9.5" y="15" width="13" height="8" rx="4" fill="#24402f"/><circle cx="13.5" cy="19" r="1.3" fill="#e6eed2"/><circle cx="18.5" cy="19" r="1.3" fill="#e6eed2"/><path d="M16 7.5c0-3 2.4-5 5.5-5-.2 3-2.3 5-5.5 5z" fill="#9c5b4a"/><path d="M16 7.5V3.8" stroke="#24402f" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </span>
+        <span class="brand-name">بيئتي</span>
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="التنقل الرئيسي">
+        <a href="#home" data-nav="home">الرئيسية</a>
+        <a href="#analyze" data-nav="analyze">تحليل صورة</a>
+        <a href="#assistant" data-nav="assistant">المساعد البيئي</a>
+        <a href="#history" data-nav="history">السجل <span class="nav-count" id="history-count" hidden>0</span></a>
+      </nav>
+      <a href="#analyze" class="btn btn-primary btn-sm header-cta">ابدأ التحليل</a>      <button class="icon-btn nav-toggle" id="nav-toggle" aria-label="القائمة" aria-expanded="false" aria-controls="main-nav">
+        <svg class="ico"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </header>
+
+
+  <main id="main" tabindex="-1">
+    <!-- ================================================================ HOME -->
+    <section class="view" data-view="home" aria-labelledby="hero-title">
+      <div class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="dot"></span> مساعد بيئي مدعوم بالذكاء الاصطناعي</p>
+            <h1 id="hero-title" class="hero-title">افهم أثرك البيئي،<br /><span class="accent">وغيّر العالم بخطوة.</span></h1>
+            <p class="hero-lead">صوّر أي منتج أو عبوة أو مادة، وسيحدد «بيئتي» مكوّناتها، ويشرح أثرها على البيئة، ويقترح عليك الطريقة الصحيحة للتخلص منها أو تدويرها أو إعادة استخدامها — بالعربية وبدقة علمية.</p>
+            <div class="hero-actions">
+              <a href="#analyze" class="btn btn-primary btn-lg"><svg class="ico"><use href="#i-upload"/></svg> حلّل صورة الآن</a>
+              <a href="#examples" class="btn btn-ghost btn-lg" data-scroll>شاهد أمثلة</a>
+            </div>
+            <ul class="hero-trust" role="list">
+              <li><svg class="ico"><use href="#i-shield"/></svg> لا نحفظ صورك</li>
+              <li><svg class="ico"><use href="#i-pin"/></svg> إرشادات تراعي السياق الأردني</li>
+            </ul>
+          </div>
+          <div class="hero-visual">
+            <div class="hero-stage">
+              <div class="stage-ring" aria-hidden="true"></div>
+              <div class="mascot-host mascot-xl" data-mascot="hero" aria-hidden="true"></div>
+              <div class="float-card fc-1" aria-hidden="true">
+                <span class="fc-icon sage"><svg class="ico"><use href="#i-recycle"/></svg></span>
+                <div><strong>PET (#1)</strong><small>قابل للتدوير</small></div>
+              </div>
+              <div class="float-card fc-2" aria-hidden="true">
+                <span class="fc-icon terra"><svg class="ico"><use href="#i-warn"/></svg></span>
+                <div><strong>بطارية ليثيوم</strong><small>تحتاج معالجة خاصة</small></div>
+              </div>
+              <div class="float-card fc-3" aria-hidden="true">
+                <span class="fc-icon forest"><svg class="ico"><use href="#i-leaf"/></svg></span>
+                <div><strong>قشور فواكه</strong><small>مناسبة للتسميد</small></div>
+              </div>
+            </div>
+            <p class="mascot-caption">مرحبًا، أنا <strong>نبتة</strong> — مساعدك البيئي.</p>
+          </div>
+        </div>
+      </div>
+
+      <section class="section how" aria-labelledby="how-title">
+        <div class="container">
+          <header class="section-head">
+            <p class="kicker">كيف يعمل</p>
+            <h2 id="how-title">ثلاث خطوات من الصورة إلى القرار الصحيح</h2>
+          </header>
+          <ol class="steps" role="list">
+            <li class="step">
+              <span class="step-num">١</span>
+              <h3>صوّر أو ارفع صورة</h3>
+              <p>التقط صورة واضحة للعنصر من الكاميرا أو اختر صورة من جهازك. يُفضَّل أن يظهر رمز التدوير إن وُجد.</p>
+            </li>
+            <li class="step">
+              <span class="step-num">٢</span>
+              <h3>يحلّلها الذكاء الاصطناعي</h3>
+              <p>يتعرّف «نبتة» على العنصر ومواده، ويميّز بين قابلية التدوير التقنية والتوفر الفعلي محليًا.</p>
+            </li>
+            <li class="step">
+              <span class="step-num">٣</span>
+              <h3>احصل على تقرير عملي</h3>
+              <p>طريقة التخلص الصحيحة، أفكار لإعادة الاستخدام، بدائل أفضل، ونصائح لتقليل الاستهلاك.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section examples" id="examples" aria-labelledby="ex-title">
+        <div class="container">
+          <header class="section-head">
+            <p class="kicker">أمثلة توضيحية</p>
+            <h2 id="ex-title">كل مادة لها قصة مختلفة</h2>
+            <p class="section-sub">نماذج مختصرة لما يقدّمه التقرير. التحليل الفعلي أكثر تفصيلًا ويعتمد على صورتك.</p>
+          </header>
+          <div class="example-grid">
+            <article class="example-card">
+              <div class="ex-top">
+                <span class="ex-badge sage"><svg class="ico"><use href="#i-recycle"/></svg></span>
+                <span class="harm-pill moderate">أثر متوسط</span>
+              </div>
+              <h3>عبوة مياه بلاستيكية</h3>
+              <p class="ex-mat">PET (#1) · الغطاء HDPE/PP</p>
+              <dl class="ex-facts">
+                <div><dt>التدوير</dt><dd>مطلوب لدى جهات التدوير غالبًا</dd></div>
+                <div><dt>قبل التسليم</dt><dd>أفرغها واشطفها واضغطها</dd></div>
+                <div><dt>بديل أفضل</dt><dd>قارورة معدنية قابلة لإعادة التعبئة</dd></div>
+              </dl>
+            </article>
+            <article class="example-card">
+              <div class="ex-top">
+                <span class="ex-badge terra"><svg class="ico"><use href="#i-warn"/></svg></span>
+                <span class="harm-pill hazardous">خطِر</span>
+              </div>
+              <h3>بطارية قلوية / ليثيوم</h3>
+              <p class="ex-mat">معادن ومواد كيميائية · نفايات خطرة</p>
+              <dl class="ex-facts">
+                <div><dt>التدوير</dt><dd>عبر نقاط جمع مختصة فقط</dd></div>
+                <div><dt>تحذير</dt><dd>لا تُرمى مع النفايات المنزلية ولا تُحرق</dd></div>
+                <div><dt>بديل أفضل</dt><dd>بطاريات قابلة لإعادة الشحن</dd></div>
+              </dl>
+            </article>
+            <article class="example-card">
+              <div class="ex-top">
+                <span class="ex-badge forest"><svg class="ico"><use href="#i-leaf"/></svg></span>
+                <span class="harm-pill low">أثر منخفض</span>
+              </div>
+              <h3>صندوق كرتون مموّج</h3>
+              <p class="ex-mat">ألياف ورقية · قد يحتوي شريطًا لاصقًا</p>
+              <dl class="ex-facts">
+                <div><dt>التدوير</dt><dd>من أسهل المواد تدويرًا إن كان جافًا ونظيفًا</dd></div>
+                <div><dt>قبل التسليم</dt><dd>انزع الشريط وافرده وأبقِه جافًا</dd></div>
+                <div><dt>إعادة استخدام</dt><dd>تخزين، تغليف، أو غطاء للتربة في الحديقة</dd></div>
+              </dl>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section features" aria-labelledby="feat-title">
+        <div class="container features-grid">
+          <header class="section-head start">
+            <p class="kicker">لماذا بيئتي</p>
+            <h2 id="feat-title">ذكاء بيئي يقول لك الحقيقة، لا ما تحب سماعه</h2>
+            <p class="section-sub">صُمّم «نبتة» ليكون دقيقًا قبل أن يكون متفائلًا: يوضّح متى يكون غير متأكد، ولا يخترع أرقامًا.</p>
+          </header>
+          <div class="feature-list">
+            <div class="feature">
+              <span class="f-icon"><svg class="ico"><use href="#i-image"/></svg></span>
+              <div><h3>تحليل بصري متعدد المواد</h3><p>يحدد العنصر وكل مكوّن فيه: الجسم، الغطاء، الملصق، والأجزاء المختلطة.</p></div>
+            </div>
+            <div class="feature">
+              <span class="f-icon"><svg class="ico"><use href="#i-flask"/></svg></span>
+              <div><h3>تمييز علمي دقيق</h3><p>يفصل بين القابلية للتدوير، والتحلل الحيوي، والسمّية، وإمكانية إعادة الاستخدام.</p></div>
+            </div>
+            <div class="feature">
+              <span class="f-icon"><svg class="ico"><use href="#i-pin"/></svg></span>
+              <div><h3>إرشاد محلي</h3><p>توجيه يراعي واقع التدوير في الأردن، مع تنبيه واضح للتحقق من الجهات في منطقتك.</p></div>
+            </div>
+            <div class="feature">
+              <span class="f-icon"><svg class="ico"><use href="#i-shield"/></svg></span>
+              <div><h3>تحذيرات السلامة أولًا</h3><p>تنبيهات فورية للبطاريات والكيماويات والإلكترونيات والأدوية مع توصية بالمعالجة المختصة.</p></div>
+            </div>
+            <div class="feature">
+              <span class="f-icon"><svg class="ico"><use href="#i-chat"/></svg></span>
+              <div><h3>محادثة متابعة</h3><p>اسأل عن البدائل، أو كيف تعيد استخدام العنصر، أو أين تسلّمه — في سياق التحليل نفسه.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section impact" aria-labelledby="impact-title">
+        <div class="container">
+          <div class="impact-card">
+            <div class="impact-copy">
+              <p class="kicker light">الأثر يبدأ من قرار صغير</p>
+              <h2 id="impact-title">قبل أن ترمي أي شيء، اسأل نفسك أربعة أسئلة</h2>
+              <p>هرم إدارة النفايات يضع التقليل وإعادة الاستخدام قبل التدوير، والتدوير قبل الطمر. «بيئتي» يساعدك على اختيار الدرجة الأعلى الممكنة لكل عنصر.</p>
+              <a href="#analyze" class="btn btn-light btn-lg">جرّب على عنصر من حولك</a>
+            </div>
+            <ol class="hierarchy" role="list">
+              <li style="--w:100%"><span>١</span><div><strong>هل أحتاجه فعلًا؟</strong><small>التقليل</small></div></li>
+              <li style="--w:88%"><span>٢</span><div><strong>هل يمكن استخدامه مجددًا؟</strong><small>إعادة الاستخدام</small></div></li>
+              <li style="--w:76%"><span>٣</span><div><strong>هل يُقبل للتدوير قربي؟</strong><small>التدوير</small></div></li>
+              <li style="--w:64%"><span>٤</span><div><strong>هل يحتاج معالجة خاصة؟</strong><small>التخلص الآمن</small></div></li>
+            </ol>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ============================================================= ANALYZE -->
+    <section class="view" data-view="analyze" aria-labelledby="analyze-title" hidden>
+      <div class="container page-head">
+        <h1 id="analyze-title">تحليل صورة</h1>
+        <p>ارفع صورة واضحة لعنصر واحد، وسيعدّ «نبتة» تقريرًا بيئيًا مفصّلًا.</p>
+      </div>
+      <div class="container analyze-layout">
+        <aside class="panel upload-panel" aria-label="رفع الصورة">
+          <div class="assistant-strip">
+            <div class="mascot-host mascot-sm" data-mascot="analyze" aria-hidden="true"></div>
+            <p class="assistant-say" id="assistant-say" aria-live="polite">أرني ما لديك، وسأخبرك كيف تتعامل معه بطريقة صديقة للبيئة.</p>
+          </div>
+
+          <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="اسحب صورة هنا أو اضغط لاختيار صورة">
+            <div class="dz-empty" id="dz-empty">
+              <span class="dz-icon"><svg class="ico"><use href="#i-image"/></svg></span>
+              <p class="dz-title">اسحب الصورة وأفلتها هنا</p>
+              <p class="dz-hint">أو اضغط للاختيار · JPG، PNG، WEBP · حتى <span id="max-mb">8</span> ميغابايت</p>
+            </div>
+            <figure class="dz-preview" id="dz-preview" hidden>
+              <img id="preview-img" alt="معاينة الصورة المختارة" />
+              <div class="scan-overlay" aria-hidden="true"><span class="scan-line"></span></div>
+              <button class="icon-btn preview-remove" id="preview-remove" type="button" aria-label="إزالة الصورة"><svg class="ico"><use href="#i-x"/></svg></button>
+            </figure>
+          </div>
+
+          <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp,image/*" hidden />
+          <input type="file" id="camera-input" accept="image/*" capture="environment" hidden />
+
+          <div class="upload-actions">
+            <button class="btn btn-ghost" type="button" id="pick-btn"><svg class="ico"><use href="#i-upload"/></svg> اختر صورة</button>
+            <button class="btn btn-ghost" type="button" id="camera-btn"><svg class="ico"><use href="#i-camera"/></svg> الكاميرا</button>
+          </div>
+
+          <label class="note-field">
+            <span>اسم العنصر (اختياري، يحسّن الدقة)</span>
+            <input type="text" id="note-input" maxlength="200" placeholder="مثال: علبة عصير، بطارية، كرتون" autocomplete="off" />
+          </label>
+
+          <button class="btn btn-primary btn-lg btn-block" type="button" id="analyze-btn" disabled>
+            <svg class="ico"><use href="#i-spark"/></svg> حلّل الصورة
+          </button>
+
+          <p class="fine-print">يتم التعرّف على الصورة داخل جهازك بالكامل، ولا تُرسل صورتك إلى أي خادم.</p>
+
+          <div class="quick-search">
+            <label class="note-field" for="search-input"><span>أو ابحث مباشرة بدون صورة</span></label>
+            <input type="search" id="search-input" class="search-input" placeholder="اكتب: بطارية، كرتون، زيت قلي…" autocomplete="off" aria-controls="search-results" />
+            <div class="search-results" id="search-results" role="listbox" aria-label="نتائج البحث"></div>
+          </div>
+        </aside>
+
+        <div class="result-area" id="result-area" aria-live="polite">
+          <div class="result-placeholder" id="result-placeholder">
+            <div class="ph-art" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <h2>تقريرك البيئي سيظهر هنا</h2>
+            <p>نصائح لصورة أفضل:</p>
+            <ul class="tips" role="list">
+              <li><svg class="ico"><use href="#i-check"/></svg> عنصر واحد في منتصف الصورة</li>
+              <li><svg class="ico"><use href="#i-check"/></svg> إضاءة جيدة وخلفية بسيطة</li>
+              <li><svg class="ico"><use href="#i-check"/></svg> أظهر رمز التدوير أو الملصق إن وُجد</li>
+            </ul>
+          </div>
+
+          <div class="analyzing" id="analyzing" hidden>
+            <div class="mascot-host mascot-md" data-mascot="thinking" aria-hidden="true"></div>
+            <h2>«نبتة» يحلّل صورتك…</h2>
+            <ol class="progress-steps" id="progress-steps" role="list">
+              <li>التعرّف على العنصر</li>
+              <li>تحديد المواد المكوِّنة</li>
+              <li>تقييم الأثر البيئي</li>
+              <li>إعداد توصيات التخلص والتدوير</li>
+            </ol>
+          </div>
+
+          <div class="error-state" id="error-state" hidden role="alert">
+            <span class="err-icon"><svg class="ico"><use href="#i-warn"/></svg></span>
+            <h2>تعذّر إكمال التحليل</h2>
+            <p id="error-message">حدث خطأ غير متوقع.</p>
+            <button class="btn btn-primary" type="button" id="retry-btn"><svg class="ico"><use href="#i-refresh"/></svg> حاول مجددًا</button>
+          </div>
+
+          <div id="report-root"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================== ASSISTANT -->
+    <section class="view" data-view="assistant" aria-labelledby="chat-title" hidden>
+      <div class="container chat-layout">
+        <div class="chat-shell panel">
+          <header class="chat-head">
+            <div class="mascot-host mascot-xs" data-mascot="chat" aria-hidden="true"></div>
+            <div>
+              <h1 id="chat-title">نبتة · المساعد البيئي</h1>
+              <p class="chat-sub" id="chat-context-label">اسأل عن التدوير، البدائل، أو أثر أي مادة.</p>
+            </div>
+            <button class="icon-btn" type="button" id="chat-clear" aria-label="بدء محادثة جديدة" title="محادثة جديدة"><svg class="ico"><use href="#i-refresh"/></svg></button>
+          </header>
+
+          <div class="chat-context" id="chat-context" hidden></div>
+
+          <div class="chat-log" id="chat-log" role="log" aria-live="polite" aria-label="المحادثة"></div>
+
+          <div class="chat-suggest" id="chat-suggest"></div>
+
+          <form class="chat-form" id="chat-form" autocomplete="off">
+            <label class="sr-only" for="chat-input">اكتب سؤالك</label>
+            <textarea id="chat-input" rows="1" maxlength="1500" placeholder="اكتب سؤالك هنا…"></textarea>
+            <button class="btn btn-primary send-btn" type="submit" id="chat-send" aria-label="إرسال"><svg class="ico"><use href="#i-send"/></svg></button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= HISTORY -->
+    <section class="view" data-view="history" aria-labelledby="history-title" hidden>
+      <div class="container page-head row">
+        <div>
+          <h1 id="history-title">سجل التحليلات</h1>
+          <p>تحليلاتك خلال هذه الجلسة. يُمسح السجل عند إغلاق المتصفح.</p>
+        </div>
+        <button class="btn btn-ghost" type="button" id="history-clear" hidden><svg class="ico"><use href="#i-trash"/></svg> مسح السجل</button>
+      </div>
+      <div class="container">
+        <div class="history-grid" id="history-grid"></div>
+        <div class="empty-state" id="history-empty">
+          <div class="mascot-host mascot-sm" data-mascot="history" aria-hidden="true"></div>
+          <h2>لا توجد تحليلات بعد</h2>
+          <p>ابدأ بتحليل أول صورة، وستظهر نتائجك هنا.</p>
+          <a href="#analyze" class="btn btn-primary">حلّل صورة</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="brand light"><span class="brand-name">بيئتي</span></a>
+        <p>افهم أثرك البيئي، وغيّر العالم بخطوة.</p>
+      </div>
+      <nav class="footer-nav" aria-label="روابط التذييل">
+        <a href="#analyze">تحليل صورة</a>
+        <a href="#assistant">المساعد البيئي</a>
+        <a href="#history">السجل</a>
+      </nav>
+      <p class="footer-note">التوصيات إرشادية، والتعرّف على الصور تقريبي وقد يخطئ. للمواد الخطرة، اتبع دائمًا تعليمات الجهات الرسمية المختصة، وتحقّق من توفر التدوير في منطقتك.</p>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span id="year"></span> بيئتي</span>
+      <span>صُنع بعناية للبيئة العربية</span>
+    </div>
+  </footer>
+
+  <!-- Camera modal (desktop / getUserMedia) -->
+  <dialog class="camera-modal" id="camera-modal" aria-labelledby="cam-title">
+    <div class="cam-inner">
+      <header>
+        <h2 id="cam-title">التقاط صورة</h2>
+        <button class="icon-btn" type="button" id="cam-close" aria-label="إغلاق"><svg class="ico"><use href="#i-x"/></svg></button>
+      </header>
+      <div class="cam-view"><video id="cam-video" playsinline muted></video></div>
+      <div class="cam-actions">
+        <button class="btn btn-ghost" type="button" id="cam-switch"><svg class="ico"><use href="#i-swap"/></svg> تبديل الكاميرا</button>
+        <button class="btn btn-primary btn-lg" type="button" id="cam-shoot"><svg class="ico"><use href="#i-camera"/></svg> التقط</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast-region" id="toast-region" aria-live="assertive"></div>
+</body>
+</html>
